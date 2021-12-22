@@ -1,8 +1,12 @@
-﻿namespace PrzepisyP.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PrzepisyP.Models
 {
     public class Technique
     {
-        public int Id { get; set; }
+        [Key]
+        public string Id { get; set; }
+        [Required]
         public int difficulty { get; set; }
     }
 }

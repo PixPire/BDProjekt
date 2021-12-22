@@ -42,7 +42,7 @@ namespace PrzepisyP
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-            services.Add(new ServiceDescriptor(typeof(IPrzepisyDb), new PrzepisyDb(Configuration)));
+            //services.Add(new ServiceDescriptor(typeof(IPrzepisyDb), new PrzepisyDb(Configuration)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
