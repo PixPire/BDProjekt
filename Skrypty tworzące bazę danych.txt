@@ -1,0 +1,107 @@
+CREATE TABLE [dbo].[Likes] (
+    [NazwaUzytkownika] VARCHAR (100) NOT NULL,
+    [IdPrzepisu]       INT           NOT NULL,
+    PRIMARY KEY CLUSTERED ([NazwaUzytkownika] ASC, [IdPrzepisu] ASC)
+);
+
+CREATE TABLE [dbo].[Przepisy] (
+    [Id]              INT            NOT NULL,
+    [Nazwa]           VARCHAR (50)   NOT NULL,
+    [Opis]            VARCHAR (1000) NOT NULL,
+    [Skladniki]       VARCHAR (1000) NULL,
+    [Data_publikacji] DATE           NULL,
+    [Uzytkownik]      VARCHAR (50)   NULL,
+    [likes]           INT            DEFAULT ((0)) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[Ulubione] (
+    [NazwaUzytkownika] VARCHAR (100) NOT NULL,
+    [IdPrzepisu]       INT           NOT NULL,
+    PRIMARY KEY CLUSTERED ([NazwaUzytkownika] ASC, [IdPrzepisu] ASC)
+);
+
+CREATE PROCEDURE [dbo].[sp_addLike]
+@idprzepisu int,
+@nazwauzytkownika VARCHAR(100)
+AS
+INSERT INTO Likes(IdPrzepisu,NazwaUzytkownika) VALUES(@idprzepisu,@nazwauzytkownika)
+
+CREATE PROCEDURE [dbo].[sp_checkLike]
+@idprzepisu int,
+@nazwauzytkownika VARCHAR(100)
+AS
+SELECT * FROM Likes WHERE IdPrzepisu=@idprzepisu AND @nazwauzytkownika = NazwaUzytkownika
+
+CREATE PROCEDURE [dbo].[sp_createPrzepis]
+@id int,
+@nazwa VARCHAR(50),
+@opis VARCHAR(1000),
+@skladniki VARCHAR(1000),
+@uzytkownik VARCHAR(100)
+AS
+INSERT INTO Przepisy(Id,Nazwa,Opis,Uzytkownik,Data_publikacji,Skladniki) VALUES (@id,@nazwa,@opis,@uzytkownik,GETDATE(),@skladniki)
+
+Create PROCEDURE [dbo].[sp_createUlubione]
+@nazwauzytkownika varchar(100),
+@idprzepisu int
+AS
+INSERT INTO Ulubione(NazwaUzytkownika,IdPrzepisu) VALUES (@nazwauzytkownika,@idprzepisu)
+
+CREATE PROCEDURE [dbo].[sp_deletePrzepis]
+@id int
+AS
+DELETE FROM Przepisy WHERE Id = @id
+
+CREATE PROCEDURE [dbo].[sp_deleteUlubione]
+@nazwauzytkownika varchar(100),
+@idprzepisu int
+AS
+DELETE FROM Ulubione WHERE NazwaUzytkownika=@nazwauzytkownika AND IdPrzepisu=@idprzepisu
+
+CREATE PROCEDURE [dbo].[sp_getPrzepis]
+@id int
+AS
+SELECT * FROM Przepisy WHERE Id=@id
+
+CREATE PROCEDURE [dbo].[sp_selectPrzepis]
+AS
+SELECT * FROM Przepisy
+
+CREATE PROCEDURE [dbo].[sp_selectSzukajNazwa]
+@nazwa VARCHAR(100)
+AS
+SELECT * FROM Przepisy WHERE Nazwa LIKE @nazwa+'%' ORDER BY Data_publikacji DESC
+
+CREATE PROCEDURE [dbo].[sp_selectSzukajPoUzytkowniku]
+@uzytkownik VARCHAR(100)
+AS
+SELECT * FROM Przepisy WHERE Uzytkownik = @uzytkownik ORDER BY Data_publikacji DESC
+
+CREATE PROCEDURE [dbo].[sp_selectSzukajUzytkownik]
+@uzytkownik VARCHAR(100)
+AS
+SELECT * FROM Przepisy WHERE Uzytkownik LIKE '%'+@uzytkownik+'%' ORDER BY Data_publikacji DESC
+
+CREATE PROCEDURE [dbo].[sp_selectTop]
+AS
+SELECT TOP 10 * FROM Przepisy ORDER BY likes DESC
+
+CREATE PROCEDURE [dbo].[sp_selectUlubione]
+@nazwauzytkownika varchar(100)
+AS
+SELECT * FROM Przepisy WHERE Id IN (SELECT IdPrzepisu FROM Ulubione WHERE NazwaUzytkownika=@nazwauzytkownika)
+
+CREATE PROCEDURE [dbo].[sp_updateLike]
+@idprzepisu int,
+@stan int
+AS
+UPDATE Przepisy SET likes=likes+@stan WHERE Id=@idprzepisu
+
+CREATE PROCEDURE [dbo].[sp_updatePrzepis]
+@id int,
+@nazwa VARCHAR(50),
+@opis VARCHAR (1000),
+@skladniki VARCHAR(1000)
+AS
+UPDATE Przepisy SET Nazwa=@nazwa, Opis=@opis, Skladniki=@skladniki WHERE Id=@id

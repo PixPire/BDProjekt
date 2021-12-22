@@ -1,0 +1,31 @@
+﻿@page
+@model PrzepisyP.Pages.TwojePrzepisyManageModel
+<a asp-page="PrzepisCreate" class="btn effect01"><span>Dodaj Przepis</span></a>
+<table class="table table-striped" style="margin-top:20px;">
+    <thead>
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => Model.przepisy[0].Id)</th>
+            <th scope="col">@Html.DisplayNameFor(model => Model.przepisy[0].Nazwa)</th>
+            <th scope="col">@Html.DisplayNameFor(model => Model.przepisy[0].Opis)</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model.przepisy)
+        {
+            @if (User.Identity.Name == p.Uzytkownik)
+            {
+                <tr>
+                    <th scope="row">@Html.DisplayFor(m => p.Id)</th>
+                    <td>@Html.DisplayFor(m => p.Nazwa)</td>
+                    <td>@Html.DisplayFor(m => p.Opis)</td>
+                    <td>
+                        <a asp-page="PrzepisDetails" asp-route-id=@p.Id>Szczegóły</a> |
+                        <a asp-page="PrzepisEdit" asp-route-id=@p.Id>Edycja</a> |
+                        <a asp-page="PrzepisDelete" asp-route-id=@p.Id>Usuń</a>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+</table>
