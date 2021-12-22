@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrzepisyP.Data;
 
-namespace PrzepisyP.Data.Migrations
+namespace PrzepisyP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210613173926_AddPrzepisToDB")]
-    partial class AddPrzepisToDB
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,32 +227,30 @@ namespace PrzepisyP.Data.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.Przepis", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("Data_publikacji")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Składniki")
-                        .IsRequired()
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nazwa")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Wykonanie")
-                        .IsRequired()
+                    b.Property<string>("Opis")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.Property<string>("Skladniki")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("UserID");
+                    b.Property<string>("Uzytkownik")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Przepis");
                 });
@@ -318,13 +314,6 @@ namespace PrzepisyP.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PrzepisyP.Models.Przepis", b =>
-                {
-                    b.HasOne("PrzepisyP.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserID");
                 });
 #pragma warning restore 612, 618
         }

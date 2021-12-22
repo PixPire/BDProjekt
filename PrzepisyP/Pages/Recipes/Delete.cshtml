@@ -1,0 +1,58 @@
+﻿@page
+@model PrzepisyP.Pages.Recipes.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Przepis</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Przepis.Nazwa)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przepis.Nazwa)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Przepis.Opis)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przepis.Opis)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Przepis.Uzytkownik)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przepis.Uzytkownik)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Przepis.Data_publikacji)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przepis.Data_publikacji)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Przepis.Skladniki)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przepis.Skladniki)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Przepis.Likes)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Przepis.Likes)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Przepis.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

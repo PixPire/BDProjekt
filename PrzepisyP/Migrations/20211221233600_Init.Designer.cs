@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PrzepisyP.Data;
 
-namespace PrzepisyP.Data.Migrations
+namespace PrzepisyP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210613162426_AddPropertiesToUser")]
-    partial class AddPropertiesToUser
+    [Migration("20211221233600_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -225,6 +225,36 @@ namespace PrzepisyP.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("PrzepisyP.Models.Przepis", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Data_publikacji")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nazwa")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Opis")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Skladniki")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Uzytkownik")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Przepis");
                 });
 
             modelBuilder.Entity("PrzepisyP.Models.ApplicationUser", b =>
