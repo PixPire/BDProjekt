@@ -2,7 +2,7 @@
 
 namespace PrzepisyP.Models
 {
-    public class RecipeFacourite
+    public class RecipeFavourite
     {
         public int RecipeId { get; set; }
         public int UserId { get; set; }
