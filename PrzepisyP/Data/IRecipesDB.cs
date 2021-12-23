@@ -20,9 +20,6 @@ namespace PrzepisyP.Data
         //Returns a recipe with an id number given as parameter
         public Recipe Get(string id);
 
-        //Generates a new id string
-        public string GetNextId();
-
         //Returns a list of recipes determined by a search phrase
         public List<Recipe> Search(string searchPhrase);
 
