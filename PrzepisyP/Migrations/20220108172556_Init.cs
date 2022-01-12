@@ -13,7 +13,8 @@ namespace PrzepisyP.Migrations
                 name: "Accesories",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Price = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -64,9 +65,10 @@ namespace PrzepisyP.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ArticleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<int>(type: "int", nullable: false),
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
                     TextContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -79,7 +81,8 @@ namespace PrzepisyP.Migrations
                 name: "GoesWellWith",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -91,7 +94,8 @@ namespace PrzepisyP.Migrations
                 name: "Ingredients",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -103,7 +107,8 @@ namespace PrzepisyP.Migrations
                 name: "RecipeCategories",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -115,7 +120,8 @@ namespace PrzepisyP.Migrations
                 name: "Recipes",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PreparationTime = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -127,7 +133,8 @@ namespace PrzepisyP.Migrations
                 name: "Techniques",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     difficulty = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -160,8 +167,9 @@ namespace PrzepisyP.Migrations
                 name: "AccesoriesFavourites",
                 columns: table => new
                 {
-                    AccesoryId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AccesoryId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -173,30 +181,31 @@ namespace PrzepisyP.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AccesoriesFavourites_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_AccesoriesFavourites_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Articles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TextContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false)
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    OwnerId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Articles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Articles_AspNetUsers_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_Articles_AspNetUsers_OwnerId1",
+                        column: x => x.OwnerId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
@@ -290,18 +299,18 @@ namespace PrzepisyP.Migrations
                 name: "Likes",
                 columns: table => new
                 {
-                    RecipeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Likes", x => new { x.RecipeId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_Likes_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Likes_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Likes_Recipes_RecipeId",
                         column: x => x.RecipeId,
@@ -314,8 +323,8 @@ namespace PrzepisyP.Migrations
                 name: "RecipeCategoryJoins",
                 columns: table => new
                 {
-                    RecipeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -338,18 +347,18 @@ namespace PrzepisyP.Migrations
                 name: "RecipeFavourites",
                 columns: table => new
                 {
-                    RecipeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RecipeFavourites", x => new { x.RecipeId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_RecipeFavourites_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_RecipeFavourites_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_RecipeFavourites_Recipes_RecipeId",
                         column: x => x.RecipeId,
@@ -362,8 +371,8 @@ namespace PrzepisyP.Migrations
                 name: "RecipeGoesWellWith",
                 columns: table => new
                 {
-                    RecipeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    GoesWellWithId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    GoesWellWithId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -386,8 +395,8 @@ namespace PrzepisyP.Migrations
                 name: "RecipeIngredients",
                 columns: table => new
                 {
-                    RecipeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IngredientId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    IngredientId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -411,9 +420,10 @@ namespace PrzepisyP.Migrations
                 name: "Images",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     IsDefault = table.Column<bool>(type: "bit", nullable: false),
-                    ArticleId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
                     ImageFile = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
@@ -423,18 +433,19 @@ namespace PrzepisyP.Migrations
                         name: "FK_Images_Articles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Articles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AccesoriesFavourites_UserId",
+                name: "IX_AccesoriesFavourites_UserId1",
                 table: "AccesoriesFavourites",
-                column: "UserId");
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Articles_OwnerId",
+                name: "IX_Articles_OwnerId1",
                 table: "Articles",
-                column: "OwnerId");
+                column: "OwnerId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -481,9 +492,9 @@ namespace PrzepisyP.Migrations
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_UserId",
+                name: "IX_Likes_UserId1",
                 table: "Likes",
-                column: "UserId");
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecipeCategoryJoins_CategoryId",
@@ -491,9 +502,9 @@ namespace PrzepisyP.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RecipeFavourites_UserId",
+                name: "IX_RecipeFavourites_UserId1",
                 table: "RecipeFavourites",
-                column: "UserId");
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RecipeGoesWellWith_GoesWellWithId",

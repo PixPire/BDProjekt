@@ -6,10 +6,10 @@ namespace PrzepisyP.Models
     public class Image
     {
         [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public bool IsDefault { get; set; }
-        public string ArticleId { get; set; }
+        public int ArticleId { get; set; }
         [Required]
         public byte[] ImageFile { get; set; }
 
