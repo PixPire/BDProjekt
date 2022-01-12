@@ -12,7 +12,7 @@ using PrzepisyP.Data;
 namespace PrzepisyP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211222232448_Init")]
+    [Migration("20220108172556_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -228,8 +228,11 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.Accesory", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -241,29 +244,38 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.AccesoryFavourite", b =>
                 {
-                    b.Property<string>("AccesoryId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("AccesoryId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("AccesoryId", "UserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("AccesoriesFavourites", (string)null);
                 });
 
             modelBuilder.Entity("PrzepisyP.Models.Article", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OwnerId")
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OwnerId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("PublishDate")
@@ -278,21 +290,24 @@ namespace PrzepisyP.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("OwnerId1");
 
                     b.ToTable("Articles", (string)null);
                 });
 
             modelBuilder.Entity("PrzepisyP.Models.Comment", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("ArticleId")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
@@ -308,8 +323,11 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.GoesWellWith", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -322,11 +340,14 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.Image", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("ArticleId")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("ImageFile")
                         .IsRequired()
@@ -344,8 +365,11 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.Ingredient", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -358,23 +382,29 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.Like", b =>
                 {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RecipeId", "UserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("PrzepisyP.Models.Recipe", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("PreparationTime")
                         .HasColumnType("int");
@@ -386,8 +416,11 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.RecipeCategory", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -400,11 +433,11 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.RecipeCategoryJoin", b =>
                 {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.HasKey("RecipeId", "CategoryId");
 
@@ -415,26 +448,29 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.RecipeFavourite", b =>
                 {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("RecipeId", "UserId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("RecipeFavourites", (string)null);
                 });
 
             modelBuilder.Entity("PrzepisyP.Models.RecipeGoesWellWith", b =>
                 {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("GoesWellWithId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("GoesWellWithId")
+                        .HasColumnType("int");
 
                     b.HasKey("RecipeId", "GoesWellWithId");
 
@@ -445,11 +481,11 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.RecipeIngredient", b =>
                 {
-                    b.Property<string>("RecipeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("IngredientId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -463,8 +499,11 @@ namespace PrzepisyP.Migrations
 
             modelBuilder.Entity("PrzepisyP.Models.Technique", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("difficulty")
                         .HasColumnType("int");
@@ -535,9 +574,7 @@ namespace PrzepisyP.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Accesory");
 
@@ -548,7 +585,7 @@ namespace PrzepisyP.Migrations
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId1");
 
                     b.Navigation("Owner");
                 });
@@ -557,7 +594,9 @@ namespace PrzepisyP.Migrations
                 {
                     b.HasOne("PrzepisyP.Models.Article", "Article")
                         .WithMany()
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Article");
                 });
@@ -572,9 +611,7 @@ namespace PrzepisyP.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Recipe");
 
@@ -610,9 +647,7 @@ namespace PrzepisyP.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Recipe");
 

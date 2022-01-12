@@ -7,8 +7,8 @@ namespace PrzepisyP.Models
     public class Article
     {
         [Key]
-        public string Id { get; set; }
-        public string OwnerId { get; set; }
+        public int Id { get; set; }
+        public int OwnerId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

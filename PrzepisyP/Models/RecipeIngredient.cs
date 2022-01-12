@@ -5,8 +5,8 @@ namespace PrzepisyP.Models
 {
     public class RecipeIngredient
     {
-        public string RecipeId { get; set; }
-        public string IngredientId { get; set; }
+        public int RecipeId { get; set; }
+        public int IngredientId { get; set; }
         [Required]
         public int Quantity { get; set; }
 
